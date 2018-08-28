@@ -1,4 +1,5 @@
-// more on https://zhongsp.gitbooks.io/typescript-handbook/doc/handbook/tutorials/Gulp.html
+// TS with Gulp more on https://zhongsp.gitbooks.io/typescript-handbook/doc/handbook/tutorials/Gulp.html
+// Browsersync with Gulp more on http://www.browsersync.cn/docs/gulp/
 var gulp = require('gulp');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
@@ -11,6 +12,41 @@ var buffer = require('vinyl-buffer');
 var paths = {
     pages: ['src/*.html']
 };
+var sass = require('gulp-sass');
+var browserSync = require('browser-sync').create();
+var reload = browserSync.reload;
+
+gulp.task('copy-html', function() {
+    return gulp.src(paths.pages).pipe(gulp.dest('dist'));
+});
+
+// SASS
+gulp.task('sass', function() {
+    return gulp
+        .src('src/scss/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('dist/css'))
+        .pipe(reload({ stream: true }));
+});
+
+// 静态服务器
+gulp.task('serve', ['copy-html', 'sass'], function() {
+    browserSync.init({
+        server: {
+            baseDir: './dist'
+        }
+    });
+
+    gulp.watch('src/scss/*.scss', ['sass']); // 最后也会 reload
+    gulp.watch(['dist/index.html', 'dist/bundle.js']).on('change', reload);
+});
+
+// // 代理
+// gulp.task('browser-sync', function() {
+//     browserSync.init({
+//         proxy: "你的域名或IP"
+//     });
+// });
 
 var watchedBrowserify = watchify(
     browserify({
@@ -21,10 +57,6 @@ var watchedBrowserify = watchify(
         packageCache: {}
     }).plugin(tsify)
 );
-
-gulp.task('copy-html', function() {
-    return gulp.src(paths.pages).pipe(gulp.dest('dist'));
-});
 
 function bundle() {
     return watchedBrowserify
