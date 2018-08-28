@@ -1,3 +1,4 @@
+// more on https://zhongsp.gitbooks.io/typescript-handbook/doc/handbook/tutorials/Gulp.html
 var gulp = require('gulp');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
