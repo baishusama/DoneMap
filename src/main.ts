@@ -1,3 +1,4 @@
+import { scaleLinear } from 'd3-scale';
 import { sayHello } from './greet';
 
 function showHello(divId: string, name: string) {
