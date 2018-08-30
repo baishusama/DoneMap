@@ -9,6 +9,13 @@
 </head>
 <body>
     <p id="greeting">Loading ...</p>
+
+    <!-- FIXME: speed up libs for testing -->
+    <!-- 为了加快本地开发编译速度，暂时在这里引入 d3（而不是 import 进 .ts 文件） -->
+    <script src="lib/d3.v5.js"></script>
+    <!-- <script src="https://d3js.org/d3.v5.js"></script> -->
+    <script src="lib/lodash.v4.17.10.js"></script>
+
     <script src="bundle.js"></script>
 </body>
 </html>
