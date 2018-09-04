@@ -1,3 +1,3 @@
-export function sayHello(compiler: string) {
-    return `Hello from ${compiler} XD!`;
+export function sayHello(name: string) {
+    return `Hello, ${name}~`;
 }
