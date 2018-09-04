@@ -1,0 +1,35 @@
+{
+    "name": "中国",
+    "children": [
+        {
+            "name": "上海",
+            "children": []
+        },
+        {
+            "name": "浙江省",
+            "children": [
+                { "name": "杭州", "value": 100 },
+                { "name": "宁波", "value": 100 },
+                { "name": "温州", "value": 100 },
+                { "name": "绍兴", "value": 100 }
+            ]
+        },
+        {
+            "name": "广西",
+            "children": [
+                {
+                    "name": "桂林",
+                    "children": [
+                        { "name": "秀峰区", "value": 100 },
+                        { "name": "叠彩区", "value": 100 },
+                        { "name": "象山区", "value": 100 },
+                        { "name": "七星区", "value": 100 }
+                    ]
+                },
+                { "name": "南宁", "value": 100 },
+                { "name": "柳州", "value": 100 },
+                { "name": "防城港", "value": 100 }
+            ]
+        }
+    ]
+}
