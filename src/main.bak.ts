@@ -1,4 +1,8 @@
-// import { sayHello } from './greet';
+// import * as _ from 'lodash';
+// import * as d3 from 'd3';
+// import { tree } from 'd3-hierarchy';
+// import { select, selectAll } from 'd3-selection';
+import { sayHello } from './greet';
 import { data } from './data';
 
 declare const d3: any;
@@ -8,14 +12,28 @@ declare const _: any;
 // console.log('[test] lodash ready:', _);
 console.log('[test] data ready:', data);
 
+/* text demo 1 */
+function showHello(divId: string, name: string) {
+    const el = document.getElementById(divId);
+    el.innerText = sayHello(name);
+}
+showHello('greeting', 'TypeScript & D3');
+
+/* text demo 2 */
+// d3.select('body')
+//     .selectAll('p')
+//     .data([2, 4])
+//     .enter()
+//     .append('p')
+//     .text(function(d: string | number) {
+//         return 'I’m number ' + d + '!';
+//     });
+
 /**
- * ImoNote:TODO: 弄懂
- * - 画布的大小 & 边距大小 & 图像偏移 ?
- * - x/y 水平还是纵向 ?
- * - ...
+ * setup svg
  */
 
-var margin = { top: 10, right: 90, bottom: 10, left: 90 },
+var margin = { top: 20, right: 120, bottom: 20, left: 120 },
     width = 800 - margin.right - margin.left,
     height = 600 - margin.top - margin.bottom;
 
@@ -25,6 +43,11 @@ var canvas = d3
     .attr('width', width + margin.right + margin.left)
     .attr('height', height + margin.top + margin.bottom)
     .style('background-color', 'lavenderblush');
+
+/**
+ * tree demo
+ * from https://blog.csdn.net/qq_34414916/article/details/80038989
+ */
 
 var g = canvas
     .append('g')
@@ -63,16 +86,13 @@ console.log('[test] links :', links);
 
 var Bézier_curve_generator = d3
     .linkHorizontal()
+    // ImoNote: ？？？
     .x(function(d: any) {
-        return d.y / 2; // ImoNote: 横向缩短，注意一下所有的 `* 2`,`/ 2`
+        return d.y;
     })
     .y(function(d: any) {
         return d.x;
     });
-
-const minX = Math.min(...nodes.map((node: { x: number }) => node.x));
-const offsetX = minX - 20; // 考虑到标签的高度
-const labelW = 80; // 标签的宽度
 
 g.append('g')
     .selectAll('path')
@@ -80,13 +100,11 @@ g.append('g')
     .enter()
     .append('path')
     .attr('d', function(d: {
-        source: { x: number; y: number; depth: number };
+        source: { x: number; y: number };
         target: { x: number; y: number };
     }) {
-        const depth = d.source.depth;
-        const offsetY = labelW * depth * 2; // 和贝塞尔曲线横向缩短一半对应
-        const source = { x: d.source.x - offsetX, y: d.source.y + offsetY };
-        const target = { x: d.target.x - offsetX, y: d.target.y + offsetY };
+        const source = { x: d.source.x, y: d.source.y };
+        const target = { x: d.target.x, y: d.target.y };
         return Bézier_curve_generator({ source, target });
     })
     .attr('fill', 'none')
@@ -101,20 +119,10 @@ var gs = g
     .append('g')
     .attr(
         'transform',
-        ({ x, y, depth }: { x: number; y: number; depth: number }) =>
-            `translate(${(y + labelW * depth * 2) / 2},${x - offsetX})`
+        ({ x, y }: { x: number; y: number }) => `translate(${y},${x})`
     );
 
-// 绘制节点
-gs.append('line')
-    .attr('x1', -labelW)
-    .attr('x2', 0)
-    .attr('y1', 0)
-    .attr('y2', 0)
-    .attr('fill', 'none')
-    .attr('stroke', 'hotpink')
-    .attr('stroke-width', 1);
-
+//绘制节点
 gs.append('circle')
     .attr('r', 6)
     .attr('fill', 'white')
@@ -125,16 +133,65 @@ const circleSize = 7; // 6 + 1;
 const distance = 1;
 const offset = circleSize + distance;
 
-// 文字
+//文字
 gs.append('text')
     .attr('x', function(d: any) {
-        // // TODO: 使用更好的计算字符串显示长度的方式
-        // const charCount = d.data.name.length;
-        return offset - labelW;
+        // FIXME: 使用更好的计算字符串显示长度的方式
+        const charCount = d.data.name.length;
+        return d.children ? -(offset + charCount * 16) : offset;
     })
-    // .attr('y', 5)
-    .attr('y', -5)
+    .attr('y', 5)
+    // .attr('y', -5)
     // .attr('dy', 10)
     .text(function(d: any) {
         return d.data.name;
     });
+
+/* line demo */
+
+// var lineData = {
+//     source: {
+//         x: 20,
+//         y: 10
+//     },
+//     target: {
+//         x: 280,
+//         y: 100
+//     }
+// };
+
+// var link = d3
+//     .linkHorizontal()
+//     .x(function(d: any) {
+//         return d.x;
+//     })
+//     .y(function(d: any) {
+//         return d.y;
+//     });
+
+// canvas
+//     .append('path')
+//     .attr('d', link(lineData))
+//     // ImoNote: can use either .attr or .style
+//     .style('fill', 'none')
+//     .style('stroke', 'black')
+//     .style('stroke-width', '4px');
+
+/* unfinished tree demo */
+
+// d3.json('data.json').then((data: any) => {
+//     console.log('[test] json, data:', data);
+//     root = data;
+//     root.x0 = height / 2;
+//     root.y0 = 0;
+//     function collapse(d: any) {
+//         if (d.children) {
+//             d._children = d.children;
+//             d._children.forEach(collapse);
+//             d.children = null;
+//         }
+//     }
+//     root.children.forEach(collapse);
+//     // function update(){}
+//     // update(root);
+// });
