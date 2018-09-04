@@ -11,6 +11,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 var paths = {
     pages: ['src/*.html'],
+    data: ['src/*.json'],
     libs: ['src/lib/*.js']
 };
 var sass = require('gulp-sass');
@@ -19,6 +20,10 @@ var reload = browserSync.reload;
 
 gulp.task('copy-html', function() {
     return gulp.src(paths.pages).pipe(gulp.dest('dist'));
+});
+
+gulp.task('copy-json', function() {
+    return gulp.src(paths.data).pipe(gulp.dest('dist'));
 });
 
 gulp.task('copy-lib', function() {
@@ -35,7 +40,7 @@ gulp.task('sass', function() {
 });
 
 // 静态服务器
-gulp.task('serve', ['copy-html', 'copy-lib', 'sass'], function() {
+gulp.task('serve', ['copy-html', 'copy-json', 'copy-lib', 'sass'], function() {
     browserSync.init({
         server: {
             baseDir: './dist'
@@ -78,7 +83,7 @@ function bundle() {
         .pipe(gulp.dest('dist'));
 }
 
-gulp.task('default', ['copy-html', 'copy-lib'], bundle);
+gulp.task('default', ['copy-html', 'copy-json', 'copy-lib'], bundle);
 watchedBrowserify.on('update', bundle);
 watchedBrowserify.on('log', gutil.log);
 
