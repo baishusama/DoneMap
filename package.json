@@ -7,7 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "gulp",
         "serve": "gulp serve",
-        "dev": "concurrently --kill-others \"npm run watch\" \"npm run serve\""
+        "dev": "concurrently --kill-others \"npm run watch\" \"npm run serve\"",
+        "clean": "rm -rf dist/"
     },
     "author": "baishusama <baishusama@outlook.com> (http://baishusama.github.io/)",
     "license": "ISC",
