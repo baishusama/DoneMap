@@ -18,6 +18,7 @@ console.log('[test] data ready:', data);
 var margin = { top: 10, right: 90, bottom: 10, left: 90 },
     width = 800 - margin.right - margin.left,
     height = 600 - margin.top - margin.bottom;
+const THEME_COLOR = 'hotpink';
 
 var canvas = d3
     .select('body')
@@ -93,7 +94,7 @@ g.append('g')
         return Bézier_curve_generator({ source, target });
     })
     .attr('fill', 'none')
-    .attr('stroke', 'hotpink')
+    .attr('stroke', THEME_COLOR)
     .attr('stroke-width', function(d: {
         source: { x: number; y: number; depth: number };
         target: { x: number; y: number };
@@ -127,7 +128,7 @@ gs.append('line')
     .attr('y1', 0)
     .attr('y2', 0)
     .attr('fill', 'none')
-    .attr('stroke', 'hotpink')
+    .attr('stroke', THEME_COLOR)
     .attr('stroke-width', function(d: { x: number; y: number; depth: number }) {
         return maxDepth - d.depth + 1;
     });
@@ -135,7 +136,7 @@ gs.append('line')
 gs.append('circle')
     .attr('r', 6)
     .attr('fill', 'white')
-    .attr('stroke', 'blue')
+    .attr('stroke', THEME_COLOR)
     .attr('stroke-width', 1);
 
 const circleSize = 7; // 6 + 1;
