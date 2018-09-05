@@ -70,6 +70,9 @@ var Bézier_curve_generator = d3
         return d.x;
     });
 
+const maxDepth = Math.max(
+    ...nodes.map((node: { depth: number }) => node.depth)
+);
 const minX = Math.min(...nodes.map((node: { x: number }) => node.x));
 const offsetX = minX - 20; // 考虑到标签的高度
 const labelW = 80; // 标签的宽度
@@ -91,7 +94,12 @@ g.append('g')
     })
     .attr('fill', 'none')
     .attr('stroke', 'hotpink')
-    .attr('stroke-width', 1);
+    .attr('stroke-width', function(d: {
+        source: { x: number; y: number; depth: number };
+        target: { x: number; y: number };
+    }) {
+        return maxDepth - d.source.depth;
+    });
 
 var gs = g
     .append('g')
@@ -105,6 +113,13 @@ var gs = g
             `translate(${(y + labelW * depth * 2) / 2},${x - offsetX})`
     );
 
+// TODO: test to del
+var test = [];
+for (var key in gs) {
+    test.push(key);
+}
+console.log('[test] keys of gs :', test);
+
 // 绘制节点
 gs.append('line')
     .attr('x1', -labelW)
@@ -113,7 +128,9 @@ gs.append('line')
     .attr('y2', 0)
     .attr('fill', 'none')
     .attr('stroke', 'hotpink')
-    .attr('stroke-width', 1);
+    .attr('stroke-width', function(d: { x: number; y: number; depth: number }) {
+        return maxDepth - d.depth + 1;
+    });
 
 gs.append('circle')
     .attr('r', 6)
