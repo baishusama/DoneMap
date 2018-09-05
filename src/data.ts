@@ -8,16 +8,15 @@ export const data = {
     name: '中国',
     children: [
         {
-            name: '上海',
-            children: []
+            name: '上海'
         },
         {
             name: '浙江省',
             children: [
-                { name: '杭州', value: 100 },
-                { name: '宁波', value: 100 },
-                { name: '温州', value: 100 },
-                { name: '绍兴', value: 100 }
+                { name: '杭州', completion: 1 },
+                { name: '宁波', completion: 1 },
+                { name: '温州' },
+                { name: '绍兴' }
             ]
         },
         {
@@ -26,15 +25,13 @@ export const data = {
                 {
                     name: '桂林',
                     children: [
-                        { name: '秀峰区', value: 100 },
-                        { name: '叠彩区', value: 100 },
-                        { name: '象山区', value: 100 },
-                        { name: '七星区', value: 100 }
+                        { name: '秀峰区', completion: 1 },
+                        { name: '叠彩区' },
+                        { name: '象山区' },
+                        { name: '七星区' }
                     ]
                 },
-                { name: '南宁', value: 100 },
-                { name: '柳州', value: 100 },
-                { name: '防城港', value: 100 }
+                { name: '柳州', completion: 1 }
             ]
         }
     ]
@@ -128,7 +125,7 @@ export const data = {
 //                 { name: 'DirtySprite', value: 8833 },
 //                 { name: 'LineSprite', value: 1732 },
 //                 { name: 'RectSprite', value: 3623 },
-//                 { name: 'TextSprite', value: 10066 }
+//                 { name: 'TextSprite', count: 166 }
 //             ]
 //         },
 //         {
@@ -237,7 +234,7 @@ export const data = {
 //             name: 'util',
 //             children: [
 //                 { name: 'Arrays', value: 8258 },
-//                 { name: 'Colors', value: 10001 },
+//                 { name: 'Colors', count: 101 },
 //                 { name: 'Dates', value: 8217 },
 //                 { name: 'Displays', value: 12555 },
 //                 { name: 'Filter', value: 2324 },
