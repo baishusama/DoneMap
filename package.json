@@ -1,6 +1,6 @@
 {
     "name": "donemap",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "A mindmap tool for listing ones completions, named DoneMap :)",
     "main": "./build/donemap.js",
     "scripts": {
