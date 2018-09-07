@@ -1,8 +1,8 @@
 {
-    "name": "navi",
+    "name": "donemap",
     "version": "1.0.0",
     "description": "",
-    "main": "./dist/main.js",
+    "main": "./build/donemap.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "gulp",

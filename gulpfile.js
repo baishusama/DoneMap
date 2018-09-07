@@ -12,7 +12,8 @@ var buffer = require('vinyl-buffer');
 var paths = {
     pages: ['src/*.html'],
     data: ['src/*.json'],
-    libs: ['src/lib/*.js']
+    libs: ['src/lib/*.js'],
+    core: ['src/donemap.ts']
 };
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync').create();
@@ -95,3 +96,17 @@ watchedBrowserify.on('log', gutil.log);
 //         .pipe(tsProject())
 //         .js.pipe(gulp.dest('dist'));
 // });
+
+gulp.task('build', function() {
+    return browserify({
+        basedir: '.',
+        debug: true,
+        entries: [paths.core],
+        cache: {},
+        packageCache: {}
+    })
+        .plugin(tsify)
+        .bundle()
+        .pipe(source('donemap.js')) // TODO: minify
+        .pipe(gulp.dest('build'));
+});
