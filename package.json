@@ -1,7 +1,7 @@
 {
     "name": "donemap",
     "version": "1.0.0",
-    "description": "",
+    "description": "A mindmap tool for listing ones completions, named DoneMap :)",
     "main": "./build/donemap.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
