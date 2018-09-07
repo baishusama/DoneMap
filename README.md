@@ -1,8 +1,8 @@
-# Navi
+# DoneMap
 
-## 参考
+## Example
 
-> [d3.js 中文文档](https://d3js.org.cn/)
+![example](example.png)
 
 ## TODO
 
@@ -10,6 +10,7 @@
 
   - [D3.js](https://d3js.org/)
   - [D3 API](https://github.com/d3/d3/blob/master/API.md)
+  - [d3.js 中文文档](https://d3js.org.cn/)
 
 - 示例（大部分来自 [bl.ocks.org](https://bl.ocks.org/) 和[官方 demo](https://github.com/d3/d3/wiki/Gallery)）
 
